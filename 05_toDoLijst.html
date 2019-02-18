@@ -27,7 +27,6 @@
   <ul id="list"></ul>
 
   <script>
-    const toDoList = [];
     const inputTitle = document.querySelector("#title");
     const inputToDo = document.querySelector("#todo");
     const list = document.querySelector("#list");
@@ -43,9 +42,6 @@
           title: inputTitle.value,
           txt: inputToDo.value,
         }
-
-        //ADD THE OBJECT TO ARRAY TODOLIST
-        toDoList.push(toDoItem);
 
         //ADD TO LIST
         const new_li = document.createElement('li');
