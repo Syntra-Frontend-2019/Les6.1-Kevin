@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>To do list</title>
+
+  <style>
+  li{
+    list-style-type: none;
+  }
+
+  .strike{
+    text-decoration: line-through;
+  } 
+  </style>
+</head>
+<body>
+  <label for="title">Title</label><br>
+  <input type="text" id="title"><br><br>
+
+  <label for="todo">To Do</label><br>
+  <textarea name="todo" id="todo" cols="30" rows="10"></textarea><br>
+  <button>Toevoegen</button>
+
+  <ul id="list"></ul>
+
+  <script>
+    const toDoList = [];
+    const inputTitle = document.querySelector("#title");
+    const inputToDo = document.querySelector("#todo");
+    const list = document.querySelector("#list");
+
+    //General add function
+    const addItem = () => {
+      const inputTitle = document.querySelector("#title");
+      const inputToDo = document.querySelector("#todo");
+      
+      const execute = () => {
+        //CREATE THE OBJECT
+        const toDoItem = {
+          title: inputTitle.value,
+          txt: inputToDo.value,
+        }
+
+        //ADD THE OBJECT TO ARRAY TODOLIST
+        toDoList.push(toDoItem);
+
+        //ADD TO LIST
+        const new_li = document.createElement('li');
+        new_li.innerHTML = `<input type="checkbox" class="box"><strong>${toDoItem.title}</strong> ${toDoItem.txt}`;
+        new_li.addEventListener('click', function(e){
+          new_li.classList.toggle('strike');
+        })
+        // new_li.innerHTML = `<strong>${toDoItem.title}</strong> ${toDoItem.txt}`;
+        list.append(new_li);
+
+        //CLEAR INPUT FIELDS
+        const resetTxt = () =>{
+          inputTitle.value = "";
+          inputToDo.value = "";
+          inputTitle.focus();
+        }
+        
+        resetTxt();
+      }
+
+    //VALIDATE & EXECUTE
+      if(inputToDo.value == "" || inputTitle.value == ""){
+        alert(`Input can't be empty!!!`);
+      }else{
+        execute();
+      }
+    }
+
+    //INPUT THE DATA
+    const btn = document.querySelector('button');
+    btn.addEventListener('click', addItem);
+
+    //RETURN BTN TO FOCUS NEXT ITEM
+    inputTitle.addEventListener('keyup', function (e) {
+      if(event.keyCode === 13) {
+        inputToDo.focus();
+      }
+    });
+
+    //RETURN BTN TO ADD ITEM
+    inputToDo.addEventListener('keyup', function(e){
+      if(event.keyCode === 13) {
+        addItem();
+      }
+    });
+  </script>
+</body>
+</html>
